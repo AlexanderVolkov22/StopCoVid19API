@@ -19,7 +19,9 @@ async def get_json(url, code):
 async def jsonget():
     response = await get_json(stopcovidurl, "RU-ARK")
     time = await modules.gettime()
-    print(time)
+    media = json.loads(response)
+    response = media[0]['date']
+    return response
 
 
 async def get_html(url):
@@ -33,9 +35,13 @@ async def main():
     response = await get_html(stopcovidurl)
     soup = BeautifulSoup(response, 'html.parser')
     sup = soup.find('div', class_='cv-section__container _g-outer-width _g-inner-padding')
+    ap = await jsonget()
+    ap = json.dumps(ap, indent=1, separators=(", ", " = "))
+    print(ap[1].date)
     print(sup)
 
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())
+    loop.run_until_complete(jsonget())
