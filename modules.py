@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# ==============
+#      Main script file
+# ==============
 import datetime
 
 import aiohttp
@@ -52,6 +57,5 @@ async def get_fucking_stats(url):
         sp = sp.split(":stats-data=")[1]
         sp = sp.replace("'></cv-stats-virus>", "")
         sp = sp.replace("'", "")
-        sp = sp.encode("utf-8").decode("unicode_escape")
         print(sp)
         return sp
